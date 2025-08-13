@@ -2,9 +2,12 @@ package com.java.user.config;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.Collection;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.JwtException;
@@ -17,12 +20,14 @@ public class JWTUtil {
 
     @Value("${jwt.secret}")
     private String secret;
-    private long expiration = 60000;
+    private long expiration = 600000;
 
 
-    public String generateToken(String username) {
+    public String generateToken(String username, Collection<? extends GrantedAuthority> authorities) {
+        String roles = authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
         return Jwts.builder()
                 .setSubject(username)
+                .claim("roles", roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
