@@ -2,7 +2,6 @@
 
 ![Java](https://img.shields.io/badge/Java-17-blue)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.4-green)
-![SonarQube](https://img.shields.io/badge/SonarQube-9.9-lightblue)
 
 Microservicio para gestión de usuarios con autenticación JWT y Spring Security.
 
