@@ -1,6 +1,5 @@
 package com.java.user.security;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,6 +39,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                     .requestMatchers("/api/users/login", "/api/users/register").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/users/").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET, "/api/users/profile").authenticated()
@@ -66,4 +66,5 @@ public class SecurityConfig {
     }
 
 }
+
 

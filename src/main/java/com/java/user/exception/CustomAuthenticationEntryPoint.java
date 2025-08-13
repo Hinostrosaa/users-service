@@ -1,6 +1,5 @@
 package com.java.user.exception;
 
-
 import java.io.IOException;
 
 import org.springframework.http.HttpStatus;
